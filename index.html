@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBk3DRC-cinlVOJPUIklHymTCsEx1DAWAk&callback=initMap"></script>
+
+</head>
+<body>
+    <div id="map" style="height: 500px;"></div>
+
+</body>
+<!-- Add this code inside the <head> tag -->
+    <script>
+        function initMap() {
+          const map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 10,
+            center: { lat: 37.7749, lng: -122.4194 },
+          });
+      
+          const markers = [
+            {
+              lat: 37.7749,
+              lng: -122.4194,
+              title: "San Francisco",
+              description: "This is San Francisco",
+            },
+            {
+              lat: 37.3363,
+              lng: -121.8906,
+              title: "San Jose",
+              description: "This is San Jose",
+            },
+            {
+              lat: 37.3894,
+              lng: -122.0819,
+              title: "Palo Alto",
+              description: "This is Palo Alto",
+            },
+          ];
+      
+          markers.forEach((marker) => {
+            const newMarker = new google.maps.Marker({
+              position: { lat: marker.lat, lng: marker.lng },
+              map,
+              title: marker.title,
+            });
+      
+            newMarker.addListener("click", () => {
+              const infoWindow = new google.maps.InfoWindow({
+                content: `<h3>${marker.title}</h3><p>${marker.description}</p>`,
+              });
+              infoWindow.open(map, newMarker);
+            });
+          });
+        }
+      
+        function loadScript() {
+          const script = document.createElement("script");
+          script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyBk3DRC-cinlVOJPUIklHymTCsEx1DAWAk&callback=initMap`;
+          script.defer = true;
+          document.head.appendChild(script);
+        }
+      
+        window.addEventListener("load", loadScript);
+      </script>
+      
+</html>
